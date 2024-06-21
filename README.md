@@ -10,7 +10,7 @@ I will take a look here: https://github.com/json-path/JsonPath
 {
   "book" : {
     "title" : "Book title",
-    "author" : "who writed the book"
+    "author" : "who wrote the book"
   }
 }
 ```
@@ -19,6 +19,6 @@ source: `$.book.author` -> destination `$.author`
 
 ```json
 {
-  "author" : "who writed the book"
+  "author" : "who wrote the book"
 }
 ```
