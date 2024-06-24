@@ -3,7 +3,7 @@
     public abstract class JsonTransformerBuilder
     {
         private readonly IServiceProvider _serviceProvider;
-        List<KeyValuePair<string, string>> _transformConfiguration = new();
+        readonly List<KeyValuePair<string, string>> _transformConfiguration = new();
 
         protected JsonTransformerBuilder(IServiceProvider serviceProvider)
         {
