@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace JPT.Newtonsoft
 {
@@ -12,13 +14,14 @@ namespace JPT.Newtonsoft
             foreach (var transformation in _transformations)
             {
                 JToken token = source.SelectToken(transformation.Key);
-                var pathParts = transformation.Value.Split('.');
+                var pathParts = transformation.Value.Split('.').Skip(1);
 
-                JToken destinationProperty = destination;
+                var destinationProperty = destination.SelectToken("$") as JObject;
 
                 foreach (var property in pathParts)
                 {
-                    destinationProperty = destinationProperty[property];
+                    destinationProperty.Add(property);
+                    destinationProperty = destinationProperty[property] as JObject;
                 }
 
                 destinationProperty.Value<object>(token.Value<object>());

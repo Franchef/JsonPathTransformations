@@ -1,3 +1,5 @@
+using System.Reflection;
+
 using Xunit.Abstractions;
 
 namespace JPTTests
@@ -8,14 +10,7 @@ namespace JPTTests
         public void BookToAuthor()
         {
             /// Arrange
-            var json = """
-    {
-        "book": {
-            "title" : "book title",
-            "author": "who wrote the book"
-        }
-    }
-""";
+            var json = System.IO.File.ReadAllText(@"TestCases\01_PropertyRename\source.json");
             var configuration = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("$.book.author", "$.author")
