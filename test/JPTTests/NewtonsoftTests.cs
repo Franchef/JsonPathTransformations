@@ -1,5 +1,6 @@
 using AutoFixture.Xunit2;
 using JPT;
+using JPT.Newtonsoft;
 using Newtonsoft.Json.Linq;
 
 using Xunit.Abstractions;
@@ -18,11 +19,12 @@ namespace JPTTests
             Assert.Contains(field, jsonDocument.ToString());
         }
 
-        [Fact]
-        public void BookToAuthor()
+        [Theory]
+        [InlineData(@"TestCases\01_PropertyRename\source.json")]
+        public void BookToAuthor(string filePath)
         {
             /// Arrange
-            var json = System.IO.File.ReadAllText(@"TestCases\01_PropertyRename\source.json");
+            var json = System.IO.File.ReadAllText(filePath);
             var configuration = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("$.book.author", "$.author")
@@ -37,6 +39,21 @@ namespace JPTTests
             /// Assert
             Assert.Contains("\"author\": \"who wrote the book\"", output);
             testOutputHelper.WriteLine(output);
+        }
+
+        [Theory]
+        [InlineData(@"TestCases\01_PropertyRename\source.json")]
+        public void IJsonPathExtractor(string filePath)
+        {
+            /// Arrange
+            var json = System.IO.File.ReadAllText(filePath);
+            IJsonPathExtractor jsonPathExtractor = new NetwonsofJsonPathExtractor(JObject.Parse(json));
+
+            /// Actvar 
+            var value = jsonPathExtractor.Extracts("$.book.author");
+
+            /// Assert
+            Assert.Contains("who wrote the book", value.ToString());
         }
     }
 }

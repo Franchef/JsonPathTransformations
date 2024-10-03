@@ -40,7 +40,7 @@ namespace JPT.Newtonsoft
             foreach (var property in pathTree.GetProperties())
             {
                 CreateProperty(destination, property);
-                if(pathTree.HasSubproperties(property))
+                if (pathTree.HasSubproperties(property))
                     CreateProperties(destination[property], pathTree.GetSubPathTree(property));
             }
         }
