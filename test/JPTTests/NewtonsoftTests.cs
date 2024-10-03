@@ -1,3 +1,5 @@
+using AutoFixture.Xunit2;
+using JPT;
 using Newtonsoft.Json.Linq;
 
 using Xunit.Abstractions;
@@ -6,12 +8,14 @@ namespace JPTTests
 {
     public class NewtonsoftTests(ITestOutputHelper testOutputHelper)
     {
-        [Fact]
-        public void AddProperty()
+        [Theory]
+        [AutoData]
+        public void AddProperty(string field)
         {
             var jsonDocument = new JObject();
-            jsonDocument = JPT.Newtonsoft.JsonTransformer.CreateProperty(jsonDocument, "campo");
+            jsonDocument = JPT.Newtonsoft.JsonTransformer.CreateProperty(jsonDocument, field);
             testOutputHelper.WriteLine(jsonDocument.ToString());
+            Assert.Contains(field, jsonDocument.ToString());
         }
 
         [Fact]
@@ -24,7 +28,7 @@ namespace JPTTests
                 new KeyValuePair<string, string>("$.book.author", "$.author")
             };
 
-            var sut = new JPT.Newtonsoft.JsonTransformer();
+            IJsonTransformer sut = new JPT.Newtonsoft.JsonTransformer();
             sut.ConfigureTransformations(configuration);
 
             /// Act

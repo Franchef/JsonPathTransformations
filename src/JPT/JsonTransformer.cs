@@ -1,6 +1,6 @@
 ﻿namespace JPT
 {
-    public abstract class JsonTransformer : IJsonTransfoermer
+    public abstract class JsonTransformer : IJsonTransformer
     {
         protected List<KeyValuePair<string, string>> _transformations;
 

@@ -16,9 +16,9 @@
             return this;
         }
 
-        IJsonTransfoermer Build()
+        IJsonTransformer Build()
         {
-            var transformer = _serviceProvider.GetService(typeof(IJsonTransfoermer)) as IJsonTransfoermer;
+            var transformer = _serviceProvider.GetService(typeof(IJsonTransformer)) as IJsonTransformer;
             transformer.ConfigureTransformations(_transformConfiguration);
             return transformer;
         }

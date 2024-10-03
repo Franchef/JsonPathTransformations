@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Nodes;
+﻿using AutoFixture.Xunit2;
+using JPT;
+using System.Text.Json.Nodes;
 
 using Xunit.Abstractions;
 
@@ -6,12 +8,14 @@ namespace JPTTests
 {
     public class SystemTextJsonTests(ITestOutputHelper testOutputHelper)
     {
-        [Fact]
-        public void AddProperty()
+        [Theory]
+        [AutoData]
+        public void AddProperty(string field)
         {
             var jsonDocument = JsonNode.Parse("{}");
-            jsonDocument = JPT.SystemTextJson.JsonTransformer.CreateProperty(jsonDocument, "campo");
+            jsonDocument = JPT.SystemTextJson.JsonTransformer.CreateProperty(jsonDocument, field);
             testOutputHelper.WriteLine(jsonDocument.ToString());
+            Assert.Contains(field, jsonDocument.ToString());
         }
 
         [Fact]
@@ -24,7 +28,7 @@ namespace JPTTests
                 new KeyValuePair<string, string>("$.book.author", "$.author")
             };
 
-            var sut = new JPT.SystemTextJson.JsonTransformer();
+            IJsonTransformer sut = new JPT.SystemTextJson.JsonTransformer();
             sut.ConfigureTransformations(configuration);
 
             /// Act

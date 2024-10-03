@@ -1,6 +1,6 @@
 ﻿namespace JPT
 {
-    public interface IJsonTransfoermer
+    public interface IJsonTransformer
     {
         string Transform(string text);
 
