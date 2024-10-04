@@ -80,7 +80,7 @@ class Build : NukeBuild
                 .SetCoverletOutputFormat(CoverletOutputFormat.opencover)
                 .SetProcessArgumentConfigurator(a => a.Add("--collect:\"XPlat Code Coverage\"").Add("/p:CollectCoverage=true"))
                 .SetResultsDirectory(TestsDirectory)
-                .SetCoverletOutput("StremsEngine.DomainTests.coverage.cobertura.xml")
+                .SetCoverletOutput(TestsDirectory / "JPTTest.coverage.cobertura.xml")
                 .SetSettingsFile(RootDirectory /  "test" / "coverlet.runsettings")
                 //.SetOutput(TestsDirectory)
                 //.SetVersion(GitVersion.NuGetVersionV2)
